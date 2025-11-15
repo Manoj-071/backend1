@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -23,9 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-6afmz!_6b9aj$yy-@dwra+b#lk)4#cdxs&dx$36x_!6s^%%#b0'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['your-backend-url.onrender.com', 'localhost']
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
 
 
 # Application definition
@@ -79,13 +82,14 @@ WSGI_APPLICATION = 'mainproject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'tracker',
-        'USER': 'root',
-        'PASSWORD': 'manoj',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'NAME': os.getenv("MYSQLDATABASE"),
+        'USER': os.getenv("MYSQLUSER"),
+        'PASSWORD': os.getenv("MYSQLPASSWORD"),
+        'HOST': os.getenv("MYSQLHOST"),
+        'PORT': os.getenv("MYSQLPORT", 3306),
     }
 }
+
 
 
 # Password validation
